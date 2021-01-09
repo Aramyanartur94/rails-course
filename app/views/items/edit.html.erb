@@ -1,9 +1,21 @@
-<h2 style="color: #B00100; margin: 0 auto">Edit item</h2> <br />
+<h2 style="color: #B00100; margin: 0 auto">Edit item <%= @item.name %></h2>
 
-<h4><%= @item.name %></h4>
+<%= form_for :item, url: item_path(@item), method: :put do |f| %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
 
-<ul>
-		<li>Price: <%= @item.price %> $</li>
-		<li>Weight: <%= @item.weight %></li>
-		<li>Description: <%= @item.description %></li>
-</ul>
+   <p>
+    <%= f.label :price %><br />
+    <%= f.text_area :price %>
+  </p>
+
+	<p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>  
+  <p>
+    <%= f.submit %>
+  </p>
+  <% end %>

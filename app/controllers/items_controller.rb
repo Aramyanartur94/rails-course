@@ -30,10 +30,16 @@ class ItemsController < ApplicationController
 	end
 
 	def edit
+			@item = Item.find(params[:id])
 	end
 
 	def update 
-		
+		@item = Item.find(params[:id])
+      if @item.update(items_params)
+      redirect_to item_path(@item)
+    else
+      render action: 'edit'
+    end
 	end
 
 	def destroy
@@ -48,7 +54,7 @@ class ItemsController < ApplicationController
 	private
 	
 	def items_params
-		params.require(:item).permit(:name, :price)
+		params.require(:item).permit(:name, :price, :description)
 	end
 	
 end
