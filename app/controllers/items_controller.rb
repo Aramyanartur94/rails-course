@@ -11,8 +11,7 @@ class ItemsController < ApplicationController
 		item = Item.new(items_params)
 		if item.valid?
 			item.save
-			render plain: params[:item].inspect
-			#render json: item.name, status: :created
+			redirect_to items_path
 		else
 			render body: "NO"
 			#render json: item.errors, status: :unprocessable_entity
