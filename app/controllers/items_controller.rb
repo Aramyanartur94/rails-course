@@ -1,7 +1,9 @@
 class ItemsController < ApplicationController
 		
 	skip_before_action :verify_authenticity_token
-
+	before_action :find_item, only: %i[show edit update destroy upvote]
+	before_action :admin?, only: %i[edit]
+	after_action :show_info, only: %i[index] 
 	def index
 		@items = Item.all
 	end
@@ -23,17 +25,13 @@ class ItemsController < ApplicationController
 	end
 
 	def show
-		unless (@item = Item.where(id: params[:id]).first)
-			render body: 'Page not found', status: 4040
-		end
+			render body: 'Page not found', status: 4040 unless @item
 	end
 
 	def edit
-			@item = Item.find(params[:id])
 	end
 
 	def update 
-		@item = Item.find(params[:id])
       if @item.update(items_params)
       redirect_to item_path(@item)
     else
@@ -42,12 +40,21 @@ class ItemsController < ApplicationController
 	end
 
 	def destroy
-		item = Item.where(id: params[:id]).first.destroy
-		if item.destroyed?
+		if @item.destroy.destroyed?
 			redirect_to items_path
 		else
 			render json: item.errors, status: :unprocessable_entity
 		end
+	end
+
+	def upvote
+		@item.increment!(:votes_count) #увеличим на единицу данное поле
+		redirect_to items_path
+	end
+
+	def expensive
+		@items = Item.where("price > 50")
+		render :index
 	end
 
 	private
@@ -56,4 +63,19 @@ class ItemsController < ApplicationController
 		params.require(:item).permit(:name, :price, :description)
 	end
 	
+	def find_item
+		@item = Item.where(id: params[:id]).first
+		#@item = Item.find(params[:id])
+		render_404 unless @item	
+	end
+
+	def admin?
+		render_403 unless params[:admin]
+		#render json: 'Access denied', status: :forbidden unless params[:admin]
+	end
+
+	def show_info
+		puts 'Index endpoint'
+	end
+
 end
