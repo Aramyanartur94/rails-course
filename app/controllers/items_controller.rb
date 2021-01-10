@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
 	end
 
 	def update 
-      if @item.update(items_params)
+    if @item.update(items_params)
       redirect_to item_path(@item)
     else
       render action: 'edit'
