@@ -1,8 +1,10 @@
 class Item < ApplicationRecord
 	validates :price, numericality: { greater_than: 0 }
 	validates :name, presence: true
+	
 	has_many :position
 	has_many :carts, through: :positions
+	has_many :comments, as: :commentable
 	# TODO for_carts_items
 	#has_and_belongs_to_many :carts
 
