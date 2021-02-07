@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
 	before_action :find_item, only: %i[show edit update destroy upvote]
 	before_action :admin?, only: %i[edit]
 	after_action :show_info, only: %i[index] 
+	
 	def index
 		@items = Item.all
 	end
@@ -67,13 +68,7 @@ class ItemsController < ApplicationController
 		@item = Item.where(id: params[:id]).first
 		#@item = Item.find(params[:id])
 		render_404 unless @item	
-	end
-
-	def admin?
-		true
-		#render_403 unless params[:admin]
-		#render json: 'Access denied', status: :forbidden unless params[:admin]
-	end
+	end	
 
 	def show_info
 		puts 'Index endpoint'
