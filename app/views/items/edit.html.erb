@@ -1,11 +1,36 @@
 <h2 style="color: #B00100; margin: 0 auto">Edit item <%= @item.name %></h2>
 
-<%= form_tag item_path(@item), method: :put do %>
-  <%= label_tag :name %>
-  <%= text_field_tag :name %>
-  <%= label_tag :price %>
-  <%= text_field_tag :price %>
-  <%= label_tag :description %>
-  <%= text_field_tag :description %>
-  <%= submit_tag "Save", class: "btn btn-large btn-primary" %>
+<!-- <%= form_tag item_path(@item), method: :put do %> -->
+  <!-- <%= label_tag :name %> -->
+  <!-- <%= text_field_tag :name %> -->
+  <!-- <%= label_tag :price %> -->
+  <!-- <%= text_field_tag :price %> -->
+  <!-- <%= label_tag :description %> -->
+  <!-- <%= text_field_tag :description %> -->
+  <!-- <%= submit_tag "Save", class: "btn btn-large btn-primary" %> -->
+  <!-- <% end %> -->
+
+
+  <%= form_for :item, url: item_path(@item), method: :put do |f| %>
+	<p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+
+ 	<p>
+    <%= f.label :price %><br />
+    <%= f.text_area :price %>
+  </p>
+  
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
   <% end %>
+
+
+  <%= render partial: 'shared/email'  %>
