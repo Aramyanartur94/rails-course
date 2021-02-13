@@ -5,6 +5,7 @@ class Item < ApplicationRecord
 	has_many :position
 	has_many :carts, through: :positions
 	has_many :comments, as: :commentable
+	has_one :image, as: :imageable
 	# TODO for_carts_items
 	#has_and_belongs_to_many :carts
 

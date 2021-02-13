@@ -6,6 +6,9 @@ class ItemsController < ApplicationController
 	after_action :show_info, only: %i[index] 
 	
 	def index
+		@items = Item.all
+		@items = @items.includes(:image)
+
 		#@items = Item.all.order(:votes_count)
 		#@items = Item.all.order(:price)
 		#@items = Item.all.sort
@@ -21,11 +24,11 @@ class ItemsController < ApplicationController
 		#@items = Item.where('price >= 200 OR votes_count >= 3')
 		#@items = Item.where('price >= ?', params[:price_from])
 
-		@items = Item
-		@items = @items.where('price >= ?', params[:price_from]) if params[:price_from]
-		@items = @items.where('created_at >= ?', 1.day.ago) if params[:today]
-		@items = @items.where('votes_count >= ?', params[:votes_from]) if params[:votes_from]
-		@items = @items.order(:id)
+		##@items = Item
+		##@items = @items.where('price >= ?', params[:price_from]) if params[:price_from]
+		##@items = @items.where('created_at >= ?', 1.day.ago) if params[:today]
+		##@items = @items.where('votes_count >= ?', params[:votes_from]) if params[:votes_from]
+		##@items = @items.order(:id)
 	end
 
 	def create
