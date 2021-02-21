@@ -1,0 +1,18 @@
+%h2{ style: "color: #B00100; margin: 0 auto"} Show item
+%br
+
+%h4= @item.name.upcase
+
+%ul
+	%li Price: #{@item.price} $
+	%li Weight: #{@item.weight}
+	%li Description: #{@item.description}
+
+%br
+
+= button_to "Edit #{@item.name}", edit_item_path, method: :get
+= button_to "Delete #{@item.name}", item_path(@item), method: :delete
+= button_to "All items", items_path, method: :get
+%br
+
+= render partial: 'shared/email'
