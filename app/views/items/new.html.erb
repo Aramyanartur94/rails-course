@@ -1,3 +1,4 @@
+<div class="col-sm-12 my-auto">
 <h2 style="color: #B00100; margin: 0 auto">Create new item</h2>
 
 <!-- <%= form_tag items_path, method: :post do %> -->
@@ -10,7 +11,8 @@
   <!-- <%= submit_tag "Save", class: "btn btn-large btn-primary" %> --> 
   <!-- <% end %> -->
 
-<%= form_for :item, url: items_path do |f| %>
+ <!--
+ <%= form_for :item, url: items_path do |f| %>
 	<p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -30,6 +32,16 @@
     <%= f.submit %>
   </p>
   <% end %>
+-->
+
+<%= simple_form_for @item do |f| %>
+  <%= f.input :name, input_html: { class: "form_text" } %>
+  <%= f.input :price, input_html: { class: "form_text" }, required: true %>
+  <%= f.input :description, label: t("item.description"), input_html: { class: "form_text" } %>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>
 
 
   <%= render partial: 'shared/email' %>
+</div>
